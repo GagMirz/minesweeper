@@ -1,24 +1,18 @@
-//status bar
-export function alertStatus(statusBar, status) {
-    statusBar.innerHTML = status;
-}
 
-//filling cell image
-//call like fillCellIMG(cont, graPhic[numb],position)
-export function fillCellIMG(contex, img, position) {
-    contex.drawImage(img, position[1] * 32 + 2, position[0] * 32 + 2);
+//filling image on cell
+const fillCellIMG = (gameObj, img, position) => {
+    gameObj.contex.drawImage(img, position[1] * 32 + 2, position[0] * 32 + 2);
 }
 
 //Draws closed cell, position in pixel
-export function drawCloseCell(contex, position) {
-    contex.fillStyle = "gray";
-    contex.fillRect(position[0], position[1], 30, 30);
+const drawCloseCell = (gameObj, position) => {
+    gameObj.contex.fillStyle = "gray";
+    gameObj.contex.fillRect(position[0], position[1], 30, 30);
 }
 
 //load images and return object
-export function loadImages() {
-    //loading images
-    //0cell
+export const loadImages = () => {
+    //open cell
     var p0 = new Image();
     p0.src = "pictures/zero.png"
     //numbers
@@ -61,51 +55,48 @@ export function loadImages() {
 }
 
 //filling canvas board closed cells
-export function loadCanvas(canvas, contex, width, height) {
+export const loadCanvas = (gameObj, gameMedia) => {
     //preventing right click menu
-    canvas.oncontextmenu = (e) => { e.preventDefault(); };
+    gameMedia.canvas.oncontextmenu = (e) => { e.preventDefault(); };
 
     //seting size of canvas
-    canvas.width = width * 32 + 2;
-    canvas.height = height * 32 + 2;
+    gameMedia.canvas.width = gameObj.width * 32 + 2;
+    gameMedia.canvas.height = gameObj.height * 32 + 2;
 
     //filling background
-    contex.fillStyle = "#565656";
-    contex.fillRect(0, 0, width * 32 + 2, height * 32 + 2);
+    gameObj.contex.fillStyle = "#565656";
+    gameObj.contex.fillRect(0, 0, gameObj.width * 32 + 2, gameObj.height * 32 + 2);
 
     //filling canvas with gray cells
-    //cont.fillStyle = "gray";
-    for (let i = 2; i < width * 32; i += 32) {
-        for (let j = 2; j < height * 32; j += 32) {
-            //cont.fillRect(i, j, 30, 30);
-            drawCloseCell(contex, [i, j]);
+    for (let i = 2; i < gameObj.width * 32; i += 32) {
+        for (let j = 2; j < gameObj.height * 32; j += 32) {
+            drawCloseCell(gameObj, [i, j]);
         }
     }
 }
 
 //rendering according to viewMap
-export function renderViewMap(contex, graPhic, viewMap, board) {
+export const renderViewMap = (gameObj, gameMedia) => {
     let amountOfOpenedCells = 0;
-    for (let i = 0; i < viewMap.length; ++i) {
-        for (let j = 0; j < viewMap[0].length; j++) {
-
-            switch (viewMap[i][j]) {
+    for (let i = 0; i < gameObj.height; ++i) {
+        for (let j = 0; j < gameObj.width; j++) {
+            switch (gameObj.viewMap[i][j]) {
                 //opening cell
                 case 1:
-                    drawCloseCell(contex, [j * 32 + 2, i * 32 + 2]);
+                    drawCloseCell(gameObj, [j * 32 + 2, i * 32 + 2]);
                     //to state it rendered
-                    ++viewMap[i][j];
+                    ++gameObj.viewMap[i][j];
                     break;
                 case 3:
-                    fillCellIMG(contex, graPhic[board[i][j]], [i, j]);
+                    fillCellIMG(gameObj, gameMedia.images[gameObj.board[i][j]], [i, j]);
                     //to state it rendered
-                    ++viewMap[i][j];
+                    ++gameObj.viewMap[i][j];
                     ++amountOfOpenedCells;
                     break;
                 case 5:
-                    fillCellIMG(contex, graPhic[10], [i, j]);
+                    fillCellIMG(gameObj, gameMedia.images[10], [i, j]);
                     //to state it rendered
-                    ++viewMap[i][j];
+                    ++gameObj.viewMap[i][j];
                     break;
             }
         }
@@ -114,11 +105,12 @@ export function renderViewMap(contex, graPhic, viewMap, board) {
 }
 
 //opening full map
-export function rendFullOpen(contex, graPhic, viewMap, board) {
-    for (let i = 0; i < viewMap.length; ++i) {
-        for (let j = 0; j < viewMap[0].length; ++j) {
-            viewMap[i][j] = 3;
+export const rendFullOpen = (gameObj, gameMedia) => {
+    //making all cells open not rendered
+    for (let i = 0; i < gameObj.height; ++i) {
+        for (let j = 0; j < gameObj.width; ++j) {
+            gameObj.viewMap[i][j] = 3;
         }
     }
-    renderViewMap(contex, graPhic, viewMap, board);
+    renderViewMap(gameObj, gameMedia);
 }
