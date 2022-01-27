@@ -17,7 +17,6 @@ export const createViewMap = (gameObj) => {
     for (let i = 0; i < gameObj.height; ++i) {
         gameObj.viewMap[i] = new Array(gameObj.width).fill(2);
     }
-    console.log(gameObj.viewMap)
 }
 
 //generates random coordinate in range of board's land
