@@ -139,6 +139,7 @@ export const start = (gameObj, gameMedia) => {
     stopPreviousSound(gameMedia);
     gameMedia.sounds[0].play();
     setStatus(gameMedia, "START JOURNEY");
+    setFlagsBar(gameMedia, gameObj.flag);
     loadCanvas(gameObj, gameMedia);
     clearInterval(gameObj.timerId);
     gameMedia.timer = 0;
