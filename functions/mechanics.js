@@ -1,6 +1,6 @@
 import { createBoard, fillMines, fillNumbers, createViewMap, surroundingCells } from "./map.js"
 import { loadCanvas, renderViewMap, rendFullOpen } from "./graphic.js"
-import { setFlagsBar, setTimer, setStatus, giveCheers } from "./status.js";
+import { setFlags, setTimer, setStatus, giveCheers } from "./status.js";
 import { stopPreviousSound } from "./sounds.js";
 
 //alld cell's neighbour cells indexes
@@ -43,7 +43,7 @@ export const openCells = (gameObj, gameMedia, i, j, steps = { c: 0 }) => {
         //opeing a cell if it's not a bomb
         gameObj.viewMap[i][j] = 3;
         steps.c = 1;
-        gameMedia.sounds[1].play();
+        gameMedia.sounds["click"].play();
         setStatus(gameMedia, giveCheers());
         return 1;
     } else if (gameObj.board[i][j] == 9 && steps.c == 0) {
@@ -72,10 +72,10 @@ export const click = (gameObj, gameMedia, mouseEvent) => {
             fillMines(gameObj);
             fillNumbers(gameObj);
             //starting timer
-            gameMedia.timer = 1;
+            gameObj.timer = 1;
             gameObj.timerId = setInterval(() => {
-                gameMedia.timerBar.innerHTML = gameMedia.timer;
-                ++gameMedia.timer;
+                setTimer(gameObj, gameMedia);
+                ++gameObj.timer;
             }, 1000);
         }
         //if flagged do nothing
@@ -92,14 +92,14 @@ export const click = (gameObj, gameMedia, mouseEvent) => {
         } else if (gameObj.viewMap[gameObj.clickPosition[0]][gameObj.clickPosition[1]] == 6) {
             ;
             gameObj.viewMap[gameObj.clickPosition[0]][gameObj.clickPosition[1]] = 1;
-            setFlagsBar(gameMedia, ++gameObj.flag);
+            setFlags(gameMedia, ++gameObj.flag);
             stopPreviousSound(gameMedia);
-            gameMedia.sounds[1].play();
+            gameMedia.sounds["click"].play();
         } else {
             gameObj.viewMap[gameObj.clickPosition[0]][gameObj.clickPosition[1]] = 5;
-            setFlagsBar(gameMedia, --gameObj.flag);
+            setFlags(gameMedia, --gameObj.flag);
             stopPreviousSound(gameMedia);
-            gameMedia.sounds[1].play();
+            gameMedia.sounds["click"].play();
         }
     }
     //rendering board and returning amount of opened cells
@@ -110,8 +110,8 @@ export const click = (gameObj, gameMedia, mouseEvent) => {
         rendFullOpen(gameObj, gameMedia);
         setStatus(gameMedia, "BOOM");
         gameObj.state = -1;
-        gameMedia.sounds[2].play();
-        gameMedia.sounds[3].play();
+        gameMedia.sounds["loose1"].play();
+        gameMedia.sounds["loose2"].play();
         return 0;
     }
     //if win
@@ -120,7 +120,7 @@ export const click = (gameObj, gameMedia, mouseEvent) => {
         rendFullOpen(gameObj, gameMedia);
         setStatus(gameMedia, "NICE, YOU DID IT");
         gameObj.State = -1;
-        gameMedia.sounds[4].play();
+        gameMedia.sounds["win"].play();
         return 0;
     }
 }
@@ -137,13 +137,13 @@ export const start = (gameObj, gameMedia) => {
     //Startscene
     createViewMap(gameObj);
     stopPreviousSound(gameMedia);
-    gameMedia.sounds[0].play();
+    gameMedia.sounds["start"].play();
     setStatus(gameMedia, "START JOURNEY");
     loadCanvas(gameObj, gameMedia);
     clearInterval(gameObj.timerId);
-    gameMedia.timer = 0;
+    gameObj.timer = 0;
     gameObj.state = 0;
-    setTimer(gameMedia);
+    setTimer(gameObj, gameMedia);
     gameObj.flag = Math.floor(gameObj.width * gameObj.height / 6 + 1);;
-    setFlagsBar(gameMedia, gameObj.flag);
+    setFlags(gameMedia, gameObj.flag);
 }
