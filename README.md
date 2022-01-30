@@ -1,5 +1,5 @@
 #**MINESWEEPER**
 
-[Try it here](https://magnagag.github.io/minesweeper/)
+[Try it here](https://gagmirz.github.io/minesweeper/)
 
 Have fun 
