@@ -20,7 +20,7 @@ export const imagesObj = {
     3: loadImage("pictures/three.png"),
     4: loadImage("pictures/four.png"),
     5: loadImage("pictures/five.png"),
-    6: loadImage("pictures/siz.png"),
+    6: loadImage("pictures/six.png"),
     7: loadImage("pictures/seven.png"),
     8: loadImage("pictures/eight.png"),
     9: loadImage("pictures/mine.png"),
