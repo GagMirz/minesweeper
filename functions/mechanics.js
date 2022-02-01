@@ -44,7 +44,7 @@ export const openCells = (gameObj, gameMedia, i, j, steps = { c: 0 }) => {
         gameObj.viewMap[i][j] = 3;
         steps.c = 1;
         gameMedia.sounds["click"].play();
-        setStatus(gameMedia, giveCheers());
+        setStatus(gameMedia, giveCheers(gameMedia));
         return 1;
     } else if (gameObj.board[i][j] == 9 && steps.c == 0) {
         //if it's bomb
