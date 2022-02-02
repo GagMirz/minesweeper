@@ -1,5 +1,5 @@
 import { createBoard, fillMines, fillNumbers, createViewMap, surroundingCells } from "./map.js"
-import { loadCanvas, renderViewMap, rendFullOpen } from "./graphic.js"
+import { loadCanvas, renderViewMap, fullOpen } from "./graphic.js"
 import { setFlags, setTimer, setStatus, giveCheers } from "./status.js";
 import { stopPreviousSound } from "./sounds.js";
 
@@ -107,7 +107,8 @@ export const click = (gameObj, gameMedia, mouseEvent) => {
     //checking if have touched bomb
     if (stepStat == -1) {
         clearInterval(gameObj.timerId);
-        rendFullOpen(gameObj, gameMedia);
+        fullOpen(gameObj);
+        renderViewMap(gameObj, gameMedia);
         setStatus(gameMedia, "BOOM");
         gameObj.state = -1;
         gameMedia.sounds["loose1"].play();
@@ -117,7 +118,8 @@ export const click = (gameObj, gameMedia, mouseEvent) => {
     //if win
     if (gameObj.openedCells == gameObj.width * gameObj.height - Math.floor(gameObj.width * gameObj.height / 6 + 1)) {
         clearInterval(gameObj.timerId);
-        rendFullOpen(gameObj, gameMedia);
+        fullOpen(gameObj);
+        renderViewMap(gameObj, gameMedia);
         setStatus(gameMedia, "NICE, YOU DID IT");
         gameObj.State = -1;
         gameMedia.sounds["win"].play();
@@ -130,7 +132,7 @@ export const click = (gameObj, gameMedia, mouseEvent) => {
 export const start = (gameObj, gameMedia) => {
     //if size is not valid will exit from function
     if (createBoard(gameObj, gameMedia)) {
-        setStatus(gameMedia, "MIN HEIGHT WIDTH IS 5");
+        setStatus(gameMedia, "MIN VALUES IS 5");
         return -1;
     }
 

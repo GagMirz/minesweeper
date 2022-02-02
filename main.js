@@ -1,13 +1,20 @@
 import { imagesObj } from './functions/graphic.js';
-import { soundsObj } from './functions/sounds.js';
 import { start, click } from './functions/mechanics.js'
 
 const gameMedia = {
-    sounds: soundsObj,
+    sounds: {
+        "start": new Audio("./sounds/sharingan.mp3"),
+        "click": new Audio("./sounds/nya.mp3"),
+        "loose1": new Audio("./sounds/megu.mp3"),
+        "loose2": new Audio("./sounds/boom.mp3"),
+        "win": new Audio("./sounds/congrats.mp3")
+    },
     images: imagesObj,
-    cheers: ["NICE", "COOL", "HEROIC", "MAGNIFICENT",
-    "WHOLESOME", "GOD MOVE", "GREAT", "JUST DO IT",
-    "TOUGH", "KAWAIIII", "CUTE", "ABSOLUTE"],
+    cheers: [
+        "NICE", "COOL", "HEROIC", "MAGNIFICENT",
+        "WHOLESOME", "GOD MOVE", "GREAT", "JUST DO IT",
+        "TOUGH", "KAWAIIII", "CUTE", "ABSOLUTE"
+    ],
     heightInput: document.getElementById("height"),
     widthInput: document.getElementById("width"),
     buttonInput: document.getElementById("button"),

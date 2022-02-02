@@ -1,16 +1,16 @@
-export const setStatus = (gameMedia, status) => {
-    gameMedia.statusBar.innerHTML = status;
+export const setStatus = ({ statusBar }, status) => {
+    statusBar.innerHTML = status;
 }
 
-export const setFlags = (gameMedia, flag) => {
-    gameMedia.flagsBar.innerHTML = flag;
+export const setFlags = ({ flagsBar }, flag) => {
+    flagsBar.innerHTML = flag;
 }
 
-export const setTimer = (gameObj, gameMedia) => {
-    gameMedia.timerBar.innerHTML = gameObj.timer;
+export const setTimer = ({ timer }, { timerBar }) => {
+    timerBar.innerHTML = timer;
 }
 
 const random = (number) => Math.floor(Math.random() * number);
-export const giveCheers = (gameMedia) => {
-    return gameMedia.cheers[random(gameMedia.cheers.length)];
+export const giveCheers = ({ cheers }) => {
+    return cheers[random(cheers.length)];
 }
