@@ -94,17 +94,17 @@ export const click = (gameObj, gameMedia, mouseEvent) => {
             gameObj.viewMap[gameObj.clickPosition[0]][gameObj.clickPosition[1]] = 1;
             setFlags(gameMedia, ++gameObj.flag);
             stopPreviousSound(gameMedia);
-            gameMedia.sounds["click"].play();
+            gameMedia.sounds["flag"].play();
         } else {
             gameObj.viewMap[gameObj.clickPosition[0]][gameObj.clickPosition[1]] = 5;
             setFlags(gameMedia, --gameObj.flag);
             stopPreviousSound(gameMedia);
-            gameMedia.sounds["click"].play();
+            gameMedia.sounds["flag"].play();
         }
     }
-    //rendering board and returning amount of opened cells
+
     gameObj.openedCells += renderViewMap(gameObj, gameMedia);
-    //checking if have touched bomb
+    // loose
     if (stepStat == -1) {
         clearInterval(gameObj.timerId);
         fullOpen(gameObj);
@@ -115,7 +115,8 @@ export const click = (gameObj, gameMedia, mouseEvent) => {
         gameMedia.sounds["loose2"].play();
         return 0;
     }
-    //if win
+
+    // win
     if (gameObj.openedCells == gameObj.width * gameObj.height - Math.floor(gameObj.width * gameObj.height / 6 + 1)) {
         clearInterval(gameObj.timerId);
         fullOpen(gameObj);
@@ -128,9 +129,8 @@ export const click = (gameObj, gameMedia, mouseEvent) => {
 }
 
 
-//starting funciton, event on sweep it button
+// sweep it button
 export const start = (gameObj, gameMedia) => {
-    //if size is not valid will exit from function
     if (createBoard(gameObj, gameMedia)) {
         setStatus(gameMedia, "MIN VALUES IS 5");
         return -1;

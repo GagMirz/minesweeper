@@ -5,6 +5,7 @@ const gameMedia = {
     sounds: {
         "start": new Audio("./sounds/sharingan.mp3"),
         "click": new Audio("./sounds/nya.mp3"),
+        "flag": new Audio("./sounds/ahhh.mp3"),
         "loose1": new Audio("./sounds/megu.mp3"),
         "loose2": new Audio("./sounds/boom.mp3"),
         "win": new Audio("./sounds/congrats.mp3")
