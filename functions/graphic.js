@@ -27,7 +27,7 @@ export const imagesObj = {
     10: loadImage("pictures/flag.png")
 }
 
-export const loadCanvas = ({contex, height, width}, {canvas}) => {
+export const loadCanvas = ({ contex, height, width }, { canvas }) => {
     //prevent right click menu
     canvas.oncontextmenu = (e) => { e.preventDefault(); };
 
@@ -46,7 +46,7 @@ export const loadCanvas = ({contex, height, width}, {canvas}) => {
     }
 }
 
-export const renderViewMap = ({contex, board, viewMap, height, width}, {images}) => {
+export const renderViewMap = ({ contex, board, viewMap, height, width }, { images }) => {
     let amountOfOpenedCells = 0;
     for (let i = 0; i < height; ++i) {
         for (let j = 0; j < width; j++) {
@@ -74,7 +74,7 @@ export const renderViewMap = ({contex, board, viewMap, height, width}, {images})
 }
 
 
-export const fullOpen = ({viewMap, height,width}) => {
+export const fullOpen = ({ viewMap, height, width }) => {
     //open cells
     for (let i = 0; i < height; ++i) {
         for (let j = 0; j < width; ++j) {

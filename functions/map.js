@@ -22,7 +22,7 @@ export const createViewMap = (gameObj) => {
     }
 }
 
-export const randomCoordinate = ({height,width}) => {
+export const randomCoordinate = ({ height, width }) => {
     return [Math.floor(Math.random() * (height)),
     Math.floor(Math.random() * (width))];
 }
