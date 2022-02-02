@@ -12,5 +12,5 @@ export const setTimer = (gameObj, gameMedia) => {
 
 const random = (number) => Math.floor(Math.random() * number);
 export const giveCheers = (gameMedia) => {
-    return cheerings[random(gameMedia.cheers.length)];
+    return gameMedia.cheers[random(gameMedia.cheers.length)];
 }
