@@ -1,4 +1,3 @@
-//generate board
 export const createBoard = (gameObj, gameMedia) => {
     gameObj.height = Number(gameMedia.heightInput.value);
     gameObj.width = Number(gameMedia.widthInput.value);
@@ -15,6 +14,7 @@ export const createBoard = (gameObj, gameMedia) => {
     return 0;
 }
 
+// Chech why deconstruction doesn't work
 export const createViewMap = (gameObj) => {
     gameObj.viewMap = new Array(gameObj.height);
     for (let i = 0; i < gameObj.height; ++i) {
@@ -32,13 +32,12 @@ export const distanceSquare = (firstCoordinate, secondCoordinate) => {
         Math.pow(firstCoordinate[1] - secondCoordinate[1], 2);
 }
 
-//except starting point and it's neighborhood :o
 export const fillMines = (gameObj) => {
+// Fill mines except starting point and it's neighbour cells 
     let randomMine;
-    //amount of mines are equal width*height/6 for some purposes -/\-
-    for (let i = 0; i <= (gameObj.width * gameObj.height / 6); ++i) {
+    let amountOfMines = gameObj.width * gameObj.height / 6;
+    for (let i = 0; i <= amountOfMines; ++i) {
         randomMine = randomCoordinate(gameObj);
-        //neighboor cells dist < 2
         if (distanceSquare(randomMine, gameObj.clickPosition) > 2 && gameObj.board[randomMine[0]][randomMine[1]] != 9) {
             gameObj.board[randomMine[0]][randomMine[1]] = 9;
         } else {
@@ -62,11 +61,11 @@ export const surroundingCells = (matrix, coordinateV, coordinateH, aimNumber) =>
     return sum;
 }
 
-export const fillNumbers = (gameObj) => {
-    for (let i = 0; i < gameObj.height; ++i) {
-        for (let j = 0; j < gameObj.width; ++j) {
-            if (gameObj.board[i][j] != 9) {
-                gameObj.board[i][j] = surroundingCells(gameObj.board, i, j, 9);
+export const fillNumbers = ({board, height, width}) => {
+    for (let i = 0; i < height; ++i) {
+        for (let j = 0; j < width; ++j) {
+            if (board[i][j] != 9) {
+                board[i][j] = surroundingCells(board, i, j, 9);
             }
         }
     }

@@ -1,4 +1,4 @@
-import { imagesObj } from './functions/graphic.js';
+import { loadImage } from './functions/graphic.js';
 import { start, click } from './functions/mechanics.js'
 
 const gameMedia = {
@@ -10,7 +10,19 @@ const gameMedia = {
         "loose2": new Audio("./sounds/boom.mp3"),
         "win": new Audio("./sounds/congrats.mp3")
     },
-    images: imagesObj,
+    images: [
+        loadImage("pictures/zero.png"),
+        loadImage("pictures/one.png"),
+        loadImage("pictures/two.png"),
+        loadImage("pictures/three.png"),
+        loadImage("pictures/four.png"),
+        loadImage("pictures/five.png"),
+        loadImage("pictures/six.png"),
+        loadImage("pictures/seven.png"),
+        loadImage("pictures/eight.png"),
+        loadImage("pictures/mine.png"),
+        loadImage("pictures/flag.png")
+    ],
     cheers: [
         "NICE", "COOL", "HEROIC", "MAGNIFICENT",
         "WHOLESOME", "GOD MOVE", "GREAT", "JUST DO IT",
@@ -41,8 +53,5 @@ const gameObj = {
     clickState: 0
 }
 
-// Add mouse events 
-gameMedia.buttonInput.addEventListener("click", () => { start(gameObj, gameMedia) });
-gameMedia.canvas.addEventListener("mousedown", (mouseEvent) => {
-    click(gameObj, gameMedia, mouseEvent);
-});
+gameMedia.buttonInput.addEventListener("click", () => start(gameObj, gameMedia));
+gameMedia.canvas.addEventListener("mousedown", (mouseEvent) => click(gameObj, gameMedia, mouseEvent));
