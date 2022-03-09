@@ -1,14 +1,16 @@
 import { loadImage } from './functions/graphic.js';
 import { start, click } from './functions/mechanics.js'
 
+let soundDir = confirm("READY FOR NSFW?") ? "NSFW" : "NORMAL";
+
 const gameMedia = {
     sounds: {
-        "start": new Audio("./sounds/sharingan.mp3"),
-        "click": new Audio("./sounds/nya.mp3"),
-        "flag": new Audio("./sounds/ahhh.mp3"),
-        "loose1": new Audio("./sounds/megu.mp3"),
-        "loose2": new Audio("./sounds/boom.mp3"),
-        "win": new Audio("./sounds/congrats.mp3")
+        "start": new Audio(`./sounds/${soundDir}/start.mp3`),
+        "click": new Audio(`./sounds/${soundDir}/leftClick.mp3`),
+        "flag": new Audio(`./sounds/${soundDir}/rightClick.mp3`),
+        "loose1": new Audio(`./sounds/${soundDir}/loose1.mp3`),
+        "loose2": new Audio(`./sounds/${soundDir}/loose2.mp3`),
+        "win": new Audio(`./sounds/${soundDir}/win.mp3`)
     },
     images: [
         loadImage("pictures/zero.png"),
